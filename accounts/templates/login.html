@@ -1,0 +1,71 @@
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - OLX Clone</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #002776;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #f90;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Entrar</h2>
+    <!-- Exibe apenas erros gerais -->
+    {% if form.non_field_errors %}
+      <div class="error-message">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Usuário ou e-mail" required>
+      <input type="password" name="password" placeholder="Senha" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>
+
+{% endblock %}

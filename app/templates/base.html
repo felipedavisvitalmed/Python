@@ -33,20 +33,22 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 0 20px;
     }
 
-    nav ul {
+    .nav-left ul {
         list-style: none;
         margin: 0;
         padding: 0;
         display: flex;
+        align-items: center;
     }
 
-    nav ul li {
-        margin: 0 10px;
+    .nav-left ul li {
+        margin-right: 15px;
     }
 
-    nav ul li a {
+    .nav-left ul li a {
         color: #fff;
         text-decoration: none;
         font-size: 16px;
@@ -54,27 +56,54 @@
         transition: all 0.3s ease;
     }
 
-    nav ul li a:hover {
+    .nav-left ul li a:hover {
         background-color: #32bbe8;
     }
 
-    nav ul li.active a {
-        background-color: #666;
+    .nav-right {
+        display: flex;
+        align-items: center;
     }
 
-    nav ul li.active a:hover {
-        background-color: #999;
+    .logout-link {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 15px;
+        background-color: #f90;
+        transition: all 0.3s ease;
     }
 
+    .logout-link:hover {
+        background-color: #e07d00;
+    }
   </style>
 </head>
 <body>
   <header>
     <nav>
-      <ul>
-        <li><a href="{% url 'cars_list' %}">Carros</a></li>
-        <li><a href="{% url 'new_car' %}">Cadastrar carros</a></li>
-      </ul>
+      <div class="nav-left">
+        <ul>
+          {% if user.is_authenticated %}
+            <li>Olá, {{ user.username }}</li>
+            <li><a href="{% url 'cars_list' %}">Carros</a></li>
+            <li><a href="{% url 'new_car' %}">Cadastrar carros</a></li>
+          {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Registrar login</a></li>
+          {% endif %}
+        </ul>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="nav-right">
+        <!-- Formulário escondido para logout -->
+        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
+          {% csrf_token %}
+        </form>
+        <!-- Link com visual de botão -->
+        <a href="#" onclick="document.getElementById('logout-form').submit();" class="logout-link">Sair</a>
+      </div>
+      {% endif %}
     </nav>
   </header>
 

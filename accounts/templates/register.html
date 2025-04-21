@@ -1,0 +1,80 @@
+
+
+{% block content %}
+<style>
+  body {
+    background: #f2f4f5;
+  }
+  .register-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+  }
+  .register-container h2 {
+    margin-bottom: 25px;
+    color: #002776;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  .form-group .errorlist {
+    color: red;
+    margin-top: 5px;
+  }
+  .form-group input[type="submit"] {
+    background-color: #f90;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .form-group input[type="submit"]:hover {
+    background-color: #e07d00;
+  }
+</style>
+
+<div class="register-container">
+  <h2>Cadastro</h2>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label>Usuário:</label>
+      {{ user_form.username }}
+      {{ user_form.username.errors }}
+    </div>
+
+    <div class="form-group">
+      <label>Senha:</label>
+      {{ user_form.password1 }}
+      {{ user_form.password1.errors }}
+    </div>
+
+    <div class="form-group">
+      <label>Confirmação de senha:</label>
+      {{ user_form.password2 }}
+      {{ user_form.password2.errors }}
+    </div>
+
+    <div class="form-group">
+      <input type="submit" value="Cadastrar">
+    </div>
+  </form>
+</div>
+{% endblock %}
