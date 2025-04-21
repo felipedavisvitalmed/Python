@@ -47,6 +47,17 @@
       color: red;
       margin-bottom: 10px;
     }
+    .register-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #002776;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .register-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -64,6 +75,8 @@
       <input type="password" name="password" placeholder="Senha" required>
       <button type="submit">Login</button>
     </form>
+    <!-- Link para cadastro -->
+    <a href="{% url 'register' %}" class="register-link">Não tem uma conta? Cadastre-se</a>
   </div>
 </body>
 </html>
