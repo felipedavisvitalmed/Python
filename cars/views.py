@@ -2,23 +2,22 @@ from django.shortcuts import render,redirect
 from cars.models import Car
 from cars.forms import CarMordelForm
 from django.views import View
+from django.views.generic import ListView,CreateView
 
 
 
-class CarsView(View): 
-     def get(self,request):
-          cars = Car.objects.all().order_by('model')
-          search = request.GET.get('search')
-          print(search)
-          if search:
-               cars = Car.objects.filter(model__icontains = search).order_by('model')
+class CarsView(ListView):
+    model = Car
+    template_name = 'cars.html'
+    context_object_name = 'cars'
 
-          return render(
-               request,
-               'cars.html',
-               { 'cars': cars  }
-               )
-
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search = self.request.GET.get('search')
+        if search:
+            queryset = queryset.filter(model__icontains=search).order_by('model')
+        return queryset
+    
 
 
 class NewCarView(View):
@@ -38,3 +37,12 @@ class NewCarView(View):
             new_car_form.save()
             return redirect('cars_list')
         return self.render_form(request, new_car_form)
+    
+
+
+class NewCarCreateView(CreateView):
+    model = Car
+    form_class = CarMordelForm
+    template_name = 'new_car.html'
+    success_url = '/new_car/'
+

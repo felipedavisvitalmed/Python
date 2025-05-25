@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import redirect
-from cars.views import  CarsView,NewCarView
+from cars.views import  CarsView,NewCarCreateView
 from accounts.views import register_view,login_view,logout_view
 
 urlpatterns = [
@@ -28,6 +28,6 @@ urlpatterns = [
     path('login/',login_view,name= 'login' ),
     path('logout/',logout_view,name= 'logout' ),
     path('cars/',CarsView.as_view(),name= 'cars_list' ),
-    path('new_car/',NewCarView.as_view(),name= 'new_car' ),
+    path('new_car/',NewCarCreateView.as_view(),name= 'new_car' ),
     path('', lambda request: redirect('login')),
 ] +  static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
